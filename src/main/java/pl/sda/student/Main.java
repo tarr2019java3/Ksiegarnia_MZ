@@ -10,24 +10,24 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
         Author author = new Author ("klakier", "kot");
         Author author1 = new Author ("pies", "burek");
         Category category = new Category ("kot");
         Category category1 = new Category ("pies");
 
-    Book book = new Book ("klasa",author, category);
-    Book book1 = new Book("sda", author1, category);
-    Book book2 = new Book("niedziela", author, category1);
-    Book book3 = new Book("odi", author1, category1);
+        Book book = new Book ("klasa", author, category);
+        Book book1 = new Book ("sda", author1, category);
+        Book book2 = new Book ("niedziela", author, category1);
+        Book book3 = new Book ("odi", author1, category1);
 
-        List<Book> listaKsiazek = new ArrayList<> ();
-        listaKsiazek.add(book);
-        listaKsiazek.add(book1);
-        listaKsiazek.add(book2);
-        listaKsiazek.add(book3);
+        List<Book> listaKsiazek = new ArrayList<> ( );
+        listaKsiazek.add (book);
+        listaKsiazek.add (book1);
+        listaKsiazek.add (book2);
+        listaKsiazek.add (book3);
 
-        ObjectMapper objectMapper = new ObjectMapper ();
+        ObjectMapper objectMapper = new ObjectMapper ( );
         try {
             objectMapper.writeValue (new File ("lista.json"), listaKsiazek);
             objectMapper.writeValue (new File ("book.json"), book);
@@ -37,7 +37,14 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace ( );
         }
+        try {
+            Book[] books = objectMapper.readValue (new File ("lista.json"), Book[].class);
+            for (Book booking : books)
+                System.out.println (booking.getAuthor ( ).getName ( ) + " " + booking.getAuthor ( ).getLastname ( ) + " " + booking.getCategory ( ).getName ( ) + " " + booking.getName ( ));
+        } catch (IOException e) {
+            e.printStackTrace ( );
+
+        }
 
     }
-
 }
